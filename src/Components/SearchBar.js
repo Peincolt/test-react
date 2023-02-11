@@ -10,8 +10,8 @@ export default class SearchBar extends Component
     render(){
         return (
             <div>
-                <input type="text" name="searchBar" value={this.props.searchString} placeholder="nom du produit"/><br/>
-                <input type={"checkbox"} name="filterProduct" checked={this.props.isFiltered}/><label htmlFor="filterProduct">Afficher uniquement les produits en stock</label>
+                <input type="text" name="searchBar" placeholder="nom du produit" onChange={this.props.event} value={this.props.searchString}/><br/>
+                <input type={"checkbox"} name="filterProduct" onChange={this.props.event} checked={this.props.isFiltered}/><label htmlFor="filterProduct">Afficher uniquement les produits en stock</label>
             </div>
         )
     }

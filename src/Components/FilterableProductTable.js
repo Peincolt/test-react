@@ -7,9 +7,10 @@ export default class FilterProductTable extends Component
     constructor(props)
     {
         super(props)
+        this.updateSearchBar = this.updateSearchBar.bind(this);
         this.state = {
-            isFiltered: false,
-            searchString: 'yr',
+            isFiltered: true,
+            searchString: '',
             products: [
                 {key: 0, category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
                 {key: 1, category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
@@ -21,10 +22,46 @@ export default class FilterProductTable extends Component
         }
     }
 
+    updateSearchElements(e)
+    {
+        let name = 'searchString';
+        let value = '';
+        switch (e.target.type) {
+            case 'checkbox':
+                name = 'isFiltered'
+                value = e.target.checked
+                break;
+            case 'text':
+                name ='searchString'
+                value = e.target.value
+                break;
+        }
+        this.setState({[name]:value})
+    }
+    updateSearchBar(e)
+    {
+        console.log(e.target.type)
+        this.setState(
+            {
+                searchString : e.target.value
+            }
+        )
+    }
+
+    updateOutOfStockCheckbox(e)
+    {
+        console.log(e.target.type)
+        this.setState(
+            {
+                isFiltered : e.target.checked
+            }
+        )
+    }
+
     render(){
         return(
             <div>
-                <SearchBar searchString={this.state.searchString} isFiltered={this.state.isFiltered}/>
+                <SearchBar searchString={this.state.searchString} isFiltered={this.state.isFiltered} event={this.updateSearchElements.bind(this)}/>
                 <ProductTable products={this.state.products} searchString={this.state.searchString} isFiltered={this.state.isFiltered}/>
             </div>
         )
